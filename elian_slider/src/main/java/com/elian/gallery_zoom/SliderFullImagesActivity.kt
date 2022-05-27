@@ -22,12 +22,16 @@ class SliderFullImagesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slider_full_show)
-        imageClose = findViewById(R.id.image_close)
-        vpImages = findViewById(R.id.vp_images)
-        tvCount = findViewById(R.id.tv_count)
+        initViews()
         receiveData()
         handleClicks()
         handleViewPager()
+    }
+
+    private fun initViews(){
+        imageClose = findViewById(R.id.image_close)
+        vpImages = findViewById(R.id.vp_images)
+        tvCount = findViewById(R.id.tv_count)
     }
 
     private fun receiveData(){
