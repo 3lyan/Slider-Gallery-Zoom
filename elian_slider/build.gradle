@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -39,4 +40,18 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     implementation("com.otaliastudios:zoomlayout:1.9.0")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.elian.gallery_zoom'
+                artifactId = 'slider_Gallery_Zoom'
+                version = '0.0.0'
+            }
+        }
+    }
 }
