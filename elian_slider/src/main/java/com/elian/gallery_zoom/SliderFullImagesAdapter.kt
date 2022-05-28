@@ -20,7 +20,7 @@ class SliderFullImagesAdapter(private val dataList: ArrayList<String>): Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(holder.itemView).load(dataList[position]).into(holder.imageView)
+        holder.imageView.loadImageFromUrl(dataList[position])
     }
 
 

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 
 
 class SliderFullImagesActivity : AppCompatActivity() {
@@ -59,10 +60,4 @@ class SliderFullImagesActivity : AppCompatActivity() {
         vpImages.reduceDragSensitivity()
     }
 
-}
-fun startFullImageSlider(context: Context,imageArrayList: ArrayList<String>,position:Int){
-    val intent = Intent(context,SliderFullImagesActivity::class.java)
-    intent.putExtra("position",position)
-    intent.putExtra("images",imageArrayList)
-    startActivity(context,intent,null)
 }
