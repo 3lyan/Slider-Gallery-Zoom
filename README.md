@@ -1,6 +1,6 @@
 # Slider-Gallery-Zoom
 
-image slider supporting indicator and auto scroll with clicking on image to open full screen image slider swipe and pinch zoom gestures like gallery,just pass your images and the position of the current image.
+image slider for android supporting indicator and auto scroll with clicking on image to open full screen image slider swipe and pinch zoom gestures like gallery,just pass your images and the position of the current image.
 
 
 https://user-images.githubusercontent.com/43176203/170810838-da47529f-159d-4dfd-97d5-019ff7cf6cb1.mp4
