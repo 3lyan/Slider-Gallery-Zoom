@@ -25,7 +25,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.3lyan:slider-gallery-zoom:1.0.1'
+    implementation 'com.github.3lyan:slider-gallery-zoom:1.1.0'
     }
 ```
     
