@@ -70,11 +70,11 @@ add me.relex.circleindicator.CircleIndicator2 to your view</b>
 	rvSlider.setCustomIndicator(introIndicator) // attach to our CustomSliderView
 ```
 
-<b>Change images scale type in slider (the default scale type is FIT_CENTER)</b>
+<b>Change images scale type in slider (the default scale type is FitCenter()) and you can add drawable image for error</b>
 ```
 	val rvSlider = findViewById<CustomSliderView>(R.id.rv_slider)
         rvSlider.setImages(requireContext(),arrayListOf("https://img.wallpapersafari.com/desktop/1366/768/35/40/clygNA.jpg",
-            "https://img.wallpapersafari.com/desktop/1366/768/90/90/4Ak2Rp.jpg",ImageView.ScaleType.FIT_CENTER))
+            "https://img.wallpapersafari.com/desktop/1366/768/90/90/4Ak2Rp.jpg",FitCenter(),ContextCompat.getDrawable(context,R.drawable.image_not_available)))
 	
 ```
 <b>You still can use full screen slider only, passing context,arraylist of urls and the current image position to the method</b>
