@@ -1,13 +1,18 @@
 package com.elian.gallery_zoom
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import me.relex.circleindicator.CircleIndicator2
 
 class CustomSliderView : RecyclerView {
@@ -29,11 +34,12 @@ class CustomSliderView : RecyclerView {
 
     fun setImages(
         context: Context, images: ArrayList<String>?,
-        scaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER
+        scaleType: BitmapTransformation = FitCenter(),
+        errorDrawable:Drawable? = ContextCompat.getDrawable(context,R.drawable.image_not_available)
     ) {
         images?.let {
             val customImageSliderAdapter =
-                CustomImageSliderAdapter(context, it,scaleType)
+                CustomImageSliderAdapter(context, it,scaleType,errorDrawable)
             adapter = customImageSliderAdapter
         }
     }

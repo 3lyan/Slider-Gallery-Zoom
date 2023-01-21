@@ -1,15 +1,20 @@
 package com.elian.gallery_zoom
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 
-class CustomImageSliderAdapter(val context: Context, private val imagesList:ArrayList<String>,
-                               val scaleType: ImageView.ScaleType) :
+class CustomImageSliderAdapter(
+    private val context: Context, private val imagesList:ArrayList<String>,
+    private val scaleType: BitmapTransformation, private val errorDrawable:Drawable?
+) :
     RecyclerView.Adapter<CustomImageSliderAdapter.ViewHolder>() {
 
 
@@ -25,8 +30,7 @@ class CustomImageSliderAdapter(val context: Context, private val imagesList:Arra
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = imagesList[position]
-        holder.imageView.loadImageFromUrl(data)
-        holder.imageView.scaleType = scaleType
+        holder.imageView.loadImageWithScale(data,scaleType,errorDrawable)
         holder.imageView.setOnClickListener {
             startFullImageSlider(context,imagesList,position)
         }
