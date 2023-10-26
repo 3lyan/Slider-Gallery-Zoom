@@ -5,13 +5,11 @@ import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import me.relex.circleindicator.CircleIndicator2
 
@@ -35,13 +33,18 @@ class CustomSliderView : RecyclerView {
     fun setImages(
         context: Context, images: ArrayList<String>?,
         scaleType: BitmapTransformation = FitCenter(),
-        errorDrawable:Drawable? = ContextCompat.getDrawable(context,R.drawable.image_not_available)
+        errorDrawable:Drawable? = ContextCompat.getDrawable(context,R.drawable.image_not_available),
+        onImageClick : (images: ArrayList<String>, position:Int)->Unit = ::onImageClick
     ) {
         images?.let {
             val customImageSliderAdapter =
-                CustomImageSliderAdapter(context, it,scaleType,errorDrawable)
+                CustomImageSliderAdapter(it,scaleType,errorDrawable,onImageClick)
             adapter = customImageSliderAdapter
         }
+    }
+
+    private fun onImageClick(images: ArrayList<String>, position:Int){
+        startFullImageSlider(context,images,position)
     }
 
     fun setCustomIndicator(indicator: CircleIndicator2) {
@@ -50,25 +53,26 @@ class CustomSliderView : RecyclerView {
 
     fun autoScroll(timeInSec: Int) {
         val timer: Long = (timeInSec * 1000).toLong()
-        Handler(Looper.getMainLooper()).postDelayed({
-            mainHandler = Handler(Looper.getMainLooper())
-            runnable = object : Runnable {
-                override fun run() {
-                    if (adapter != null) {
-                        val count =
-                            (this@CustomSliderView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                        if (count + 1 < adapter!!.itemCount) {
-                            this@CustomSliderView.smoothScrollToPosition(count + 1)
-                        } else {
-                            this@CustomSliderView.smoothScrollToPosition(0)
+        if (!this::mainHandler.isInitialized) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                mainHandler = Handler(Looper.getMainLooper())
+                runnable = object : Runnable {
+                    override fun run() {
+                        if (adapter != null) {
+                            val count =
+                                (this@CustomSliderView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                            if (count + 1 < adapter!!.itemCount) {
+                                this@CustomSliderView.smoothScrollToPosition(count + 1)
+                            } else {
+                                this@CustomSliderView.smoothScrollToPosition(0)
+                            }
+                            mainHandler.postDelayed(this, timer)
                         }
-                        mainHandler.postDelayed(this, timer)
                     }
                 }
-            }
-            mainHandler.post(runnable)
-        }, timer)
-
+                mainHandler.post(runnable)
+            }, timer)
+        }
     }
 
     override fun onDetachedFromWindow() {
